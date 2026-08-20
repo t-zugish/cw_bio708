@@ -17,3 +17,13 @@ sd(x)
 v <- c(1, 3, 5)
 v
 
+##installing the swirl package
+install.packages("swirl")
+
+##calling a function before using
+library(swirl)
+
+
+
+
+
