@@ -103,7 +103,9 @@ nrow(df_subset)
 
 # 13: Repeat Q11 and Q12 in a single pipeline (with %>%), and assign the result to `n_make`.
 
-#already did 11 with piping!
+n_make <- df_mtcars %>% 
+  filter(mpg < 20 & disp > 200) %>% 
+  nrow()
 
 # 14: Convert the `cyl` column from numeric to factor using `factor()`.  
 # Add it to `df_mtcars` as a new column named `f_cyl` using `mutate()` function.
@@ -124,8 +126,8 @@ df_mtcars %>%
 # 16: Calculate the average car weight (`wt`) separately for each number of cylinders (`cyl`).
 # Hint - `group_by()` and `summarize()` functions.
 
-df_mtcars %>% 
-  group_by(cyl)
+# df_mtcars %>% 
+#   group_by(cyl)
 
 df_mtcars %>% 
   group_by(cyl) %>% 
@@ -135,9 +137,16 @@ df_mtcars %>%
 # Hint - `filter()` and `arrange()` functions.
 
 df_mtcars %>% 
+  filter(cyl == 6) %>% 
+  arrange(wt)
+#the table arranges weights from least heavy to most heavy. based on this table, the heaviest car make is 3.46. 
   
 
 # 18: Create a histogram showing the distribution of 1/4 mile time (`qsec`).
+
+df_mtcars %>% 
+  ggplot(aes(x = qsec)) +
+  geom_histogram()
 
 # 19: The following script reads two tibbles:
 # one containing fish length data and the other containing fish weight data.
@@ -148,5 +157,13 @@ df_mtcars %>%
 df_l <- read_csv("data_src/data_length_assess01.csv")
 df_w <- read_csv("data_src/data_weight_assess01.csv")
 
+df_fish <- left_join(df_l, df_w, join_by(species, individual))
+
 # 20: Draw a scatter plot (point plot) of `length` vs. `weight` from `df_fish`,  
 # coloring the points by `species`
+
+df_fish %>% 
+  ggplot(aes(x = length,
+             y = weight,
+             color = species)) +
+  geom_point()
