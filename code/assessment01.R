@@ -6,6 +6,8 @@
 # 1: Create a vector with three elements (either numeric or character, up to you).
 # Assign it to `v_three`.
 
+v_three <- c(1, 2, 3)
+
 # 2: Create a vector object containing 
 # - 20 character elements of "a",
 # - 50 character elements of "b",
@@ -13,25 +15,47 @@
 # (thus, the vector has a length of 100 elements)
 # Assign it to `v_abc100`.
 
+v_abc100 <- c(rep("a", times = 20), rep("b", times = 50), rep("c", times = 30))
+
 # 3: The script below creates a vector `v_x` with 100 random numbers from a normal distribution.  
 # Select only the positive numbers (> 0) from `v_x`, calculate their mean, and assign it to `mu_x_plus`.
 set.seed(100)
 v_x <- rnorm(100)
 
+x_plus <- which(v_x > 0)
+mu_x_plus <- mean(x_plus)
+
 # 4: Create a numeric matrix with the numbers 1 through 9 arranged in 3 rows × 3 columns.  
 # Assign it to `m_num`.
+
+m_num <- cbind(c(1,2,3), c(4,5,6), c(7, 8, 9))
 
 # 5: Create a base R data frame (`data.frame()` function) using `v_x` and `v_abc100`.  
 # Name the columns `"x"` for `v_x` and `"group"` for `v_abc100`, and assign it to `df_sample`.
 
 
+x <- v_x
+y <- v_abc100
+df_sample <- (data.frame(x = x, group = y))
+
+# TSS: total suspended solids (mg/L)
+y <- c(1.2, 2.2, 10.9, 50.0, 3.0)
+
+# x is named as "LakeType" while y is named as "TSS"
+(df0 <- data.frame(LakeType = x, TSS = y))
+
 # tidyverse ---------------------------------------------------------------
 
 # 6: Load the `tidyverse` package.
 
+library(tidyverse)
+
 # 7: The `mtcars` dataset is a built-in base R data frame.  
 # Convert it to a tibble using `as_tibble()` and assign it to `df_mtcars`.  
 # Use `?as_tibble()` to read the documentation before doing so.
+
+?as.tibble()
+df_mtcars <- as_tibble(mtcars)
 
 # 8: `mtcars` has the following columns:
 #
@@ -50,32 +74,68 @@ v_x <- rnorm(100)
 # Display the column names of `df_mtcars` using `colnames()`.  
 # Do NOT assign the result to a new object.
 
+colnames(df_mtcars)
+
 # 9: Extract the row names of the `mtcars` dataset using `rownames()`.  
 # Assign the result to `v_make`.
 
+v_make <- rownames(mtcars)
+
 # 10: Add `v_make` as a new column to `df_mtcars` and name the column `"make"`.
+
+mutate(df_mtcars, make = v_make)
 
 # 11: Filter `df_mtcars` to include only rows where:  
 # - `mpg` is less than 20 AND  
 # - `disp` is greater than 200  
 # Assign the result to `df_subset`.
 
+#i am going to try to do this with piping
+
+df_subset <- df_mtcars %>% 
+  group_by(mpg < 20, disp > 200)
+
 # 12: Count how many car makes meet the above conditions (Q11).
 # Apply `nrow()` to `df_subset`. Use ?nrow() for the usage of nrow() function.
 
+?nrow()
+nrow(df_subset)
+
 # 13: Repeat Q11 and Q12 in a single pipeline (with %>%), and assign the result to `n_make`.
+
+#already did 11 with piping!
 
 # 14: Convert the `cyl` column from numeric to factor using `factor()`.  
 # Add it to `df_mtcars` as a new column named `f_cyl` using `mutate()` function.
 # Use ?factor() for the usage of factor() function.
 
+?factor()
+f_cyl <- factor("cyl")
+
+mutate(df_mtcars, f_cyl = cyl)
+
 # 15: Draw a box plot showing car weight (`wt`) for each number of cylinders (`f_cyl`).
+
+df_mtcars %>% 
+  ggplot(aes(x = f_cyl,
+             y = wt)) +
+  geom_boxplot()
 
 # 16: Calculate the average car weight (`wt`) separately for each number of cylinders (`cyl`).
 # Hint - `group_by()` and `summarize()` functions.
 
+df_mtcars %>% 
+  group_by(cyl)
+
+df_mtcars %>% 
+  group_by(cyl) %>% 
+  summarize(mu_wt = mean(wt))
+
 # 17: Identify the heaviest car make (`wt`) among cars with 6 cylinders (`cyl`).
 # Hint - `filter()` and `arrange()` functions.
+
+df_mtcars %>% 
+  
 
 # 18: Create a histogram showing the distribution of 1/4 mile time (`qsec`).
 
@@ -85,8 +145,8 @@ v_x <- rnorm(100)
 # so that the length and weight measurements for each fish are aligned.
 # Assign the resulting data frame to `df_fish`.
 
-df_l <- read_csv("data_raw/data_length_assess01.csv")
-df_w <- read_csv("data_raw/data_weight_assess01.csv")
+df_l <- read_csv("data_src/data_length_assess01.csv")
+df_w <- read_csv("data_src/data_weight_assess01.csv")
 
 # 20: Draw a scatter plot (point plot) of `length` vs. `weight` from `df_fish`,  
 # coloring the points by `species`
