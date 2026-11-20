@@ -146,16 +146,20 @@ summary(lm_ms) #trust but verify!
 # Mississippi plants, and use the model results to support your answers.
 
 # ENTER YOUR ANSWER HERE as COMMENT:
-# (no coding required for this question)
 
 #General interpretation of coefficients: 
-#conc refers to effect of concentration on reference treatment group (nonchilled plants)
 
 #Quebec data:
+#CO2 assimilation shows a significant positive correlation with ambient CO2 
 #the interaction term between concentration and treatment is not significant
-#indicating that 
+#there is not a significant difference between treatment groups
+#meaning that differences between treatment groups at the same CO2 conc may be due to chance alone
 
-#Mississippi data: 
+#Mississippi data: VERY DIFFERENT FROM QUEBEC
+#CO2 assimilation shows a significant positive correlation with ambient CO2
+#the chilled treatment shows a significant difference relative to the nonchilled treatment
+#the interaction between concentration and treatment is significant
+
 
 
 # BCI data ----------------------------------------------------------------
@@ -283,10 +287,25 @@ df_m
 
 df_m %>% 
   ggplot(
-    aes(x = plot,
+    aes(x = env_het,
         y = p)
   ) +
-  geom_point() #looks like a caterpillar 
+  geom_point()
+
+df_m %>% 
+  ggplot(
+    aes(x = stream,
+        y = p)
+  ) +
+  geom_point()
+
+df_m %>% 
+  ggplot(
+    aes(x = habitat,
+        y = p)
+  ) +
+  geom_point()
+
 
 #let's try the binomial distribution
 
@@ -320,6 +339,8 @@ m_sub
 #the second best model includes all three predictors (heterogeneity, habitat, and stream)
 #this model also shows that env_het has a negative effect on p. 
 
+#Also, the final paper we discussed in EHS1 with Dr. Komatsu was about niches using data from BCI!
+#This was a cool connection between classes
 
 
 
