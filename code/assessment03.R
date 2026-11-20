@@ -338,6 +338,8 @@ m_sub
 #In this model, env_het has a negative effect on the proportion of dominant species (p)
 #the second best model includes all three predictors (heterogeneity, habitat, and stream)
 #this model also shows that env_het has a negative effect on p. 
+#that being said, both of these models are imperfect. the predicted intercept is negative.
+#we do not expect proportional data to ever be negative
 
 #Also, the final paper we discussed in EHS1 with Dr. Komatsu was about niches using data from BCI!
 #This was a cool connection between classes
